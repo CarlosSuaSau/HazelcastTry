@@ -1,0 +1,18 @@
+<hazelcast xmlns="http://www.hazelcast.com/schema/config"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.hazelcast.com/schema/config
+                               http://www.hazelcast.com/schema/config/hazelcast-config-4.0.xsd">
+
+    <network>
+        <!-- Deshabilitar multicast -->
+        <join>
+            <multicast enabled="false"/>
+            <!-- Usar TCP/IP para conectar nodos -->
+            <tcp-ip enabled="true">
+                <member>192.168.1.100</member>  <!-- IP del primer nodo -->
+                <member>192.168.1.101</member>  <!-- IP del segundo nodo -->
+            </tcp-ip>
+        </join>
+    </network>
+</hazelcast>
+

@@ -1,0 +1,20 @@
+version: '3'
+services:
+  hazelcast-node1:
+    image: hazelcast/hazelcast
+    ports:
+      - "5701:5701"  # Puerto por defecto de Hazelcast
+    environment:
+      - HAZELCAST_NETWORK_PORT=5701
+      - HAZELCAST_NETWORK_TCPIP_ENABLED=true
+      - HAZELCAST_NETWORK_TCPIP_MEMBERS=192.168.1.100,192.168.1.101  # IPs de los nodos
+
+  hazelcast-node2:
+    image: hazelcast/hazelcast
+    ports:
+      - "5701:5701"
+    environment:
+      - HAZELCAST_NETWORK_PORT=5701
+      - HAZELCAST_NETWORK_TCPIP_ENABLED=true
+      - HAZELCAST_NETWORK_TCPIP_MEMBERS=192.168.1.100,192.168.1.101
+
