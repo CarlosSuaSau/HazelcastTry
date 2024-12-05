@@ -1,15 +1,22 @@
 version: '3.8'
+
 services:
-  hazelcast-node1:
-    image: hazelcast/hazelcast:latest
-    container_name: hazelcast-node1
+  hazelcast-node:
+    image: hazelcast_distributed_test:latest
+    container_name: hazelcast-node
+    networks:
+      hazelcast-network:
+        ipv4_address: 192.168.1.100
+    environment:
+      - JAVA_OPTS=-Dhazelcast.local.publicAddress=192.168.1.100:5701
+    command: java -jar /app/PruebaHazelcast-1.0-SNAPSHOT.jar
     ports:
       - "5701:5701"
-    networks:
-      - hazelcast-net
-    volumes:
-      - ./hazelcast.xml:/opt/hazelcast/hazelcast.xml
 
-  hazelcast-node2:
-    image: hazelcast/hazelcast:latest
-    container_name: ha
+networks:
+  hazelcast-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
+
