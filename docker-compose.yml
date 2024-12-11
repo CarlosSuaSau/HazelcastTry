@@ -1,22 +1,28 @@
-version: '3.8'
-
+version: "3.9"
 services:
-  hazelcast-node:
-    image: hazelcast_distributed_test:latest
-    container_name: hazelcast-node
+  hazelcast-node1:
+    image: hazelcast/hazelcast:5.3.1
+    container_name: hazelcast-node1
     networks:
-      hazelcast-network:
-        ipv4_address: 192.168.1.100
-    environment:
-      - JAVA_OPTS=-Dhazelcast.local.publicAddress=192.168.1.100:5701
-    command: java -jar /app/PruebaHazelcast-1.0-SNAPSHOT.jar
-    ports:
-      - "5701:5701"
+      - hazelcast-network
 
+  hazelcast-node2:
+    image: hazelcast/hazelcast:5.3.1
+    container_name: hazelcast-node2
+    networks:
+      - hazelcast-network
+
+  application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hazelcast-app
+    depends_on:
+      - hazelcast-node1
+      - hazelcast-node2
+    networks:
+      - hazelcast-network
+    environment:
+      - HAZELCAST_CLUSTER_NAME=hazelcast-cluster
 networks:
   hazelcast-network:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 192.168.1.0/24
-

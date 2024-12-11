@@ -4,7 +4,7 @@
            http://www.hazelcast.com/schema/config/hazelcast-config-4.2.xsd">
     <network>
         <!-- Bind the node to its local address -->
-        <public-address>193.145.130.41:5701</public-address>
+        <public-address>10.195.209.92:5701</public-address>
 
         <!-- Enable multicast for member discovery -->
         <join>
